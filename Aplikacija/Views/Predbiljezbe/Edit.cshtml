@@ -1,0 +1,123 @@
+﻿@model Aplikacija.Models.Predbiljezba
+@{ 
+    // Provjerava vrijednost iz db za Predbiljezba.Status
+    // i dodaje checked = "checked" ako je true
+    // Radi samo sa RadioButtonFor(LINQ expression, value, true/false(checked))
+    bool isChecked = false ;
+    if (Model.Status == null)
+    {
+        isChecked = false;
+    }
+    else if (Model.Status.Equals("Prihvacena"))
+    {
+        isChecked = true;
+    }
+    else if (Model.Status.Equals("Odbijena"))
+    {
+        isChecked = true;
+    }
+}
+@*@{ 
+    string isChecked = ViewBag.isChecked;
+}*@
+@{
+    ViewBag.Title = "Edit";
+}
+<br />
+<h2>Uredi predbilježbu za: @Model.Ime @Model.Prezime</h2>
+<br />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.PredbiljezbaId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SeminarId, "Seminar:", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("SeminarId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SeminarId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DatumPredbiljezbe, "Datum predbilježbe:", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DatumPredbiljezbe, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DatumPredbiljezbe, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Ime, "Ime:", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Ime, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Ime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Prezime, "Prezime:",htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Prezime, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Prezime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Adresa, "Adresa:", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Adresa, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Adresa, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, "Email:", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Telefon, "Telefon:", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Telefon, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Telefon, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Status, "Status:", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">               
+                <label>
+                    @Html.RadioButtonFor(x => x.Status, "Prihvacena", isChecked) Prihvaćena
+                </label>
+                <label>
+                    @Html.RadioButtonFor(x => x.Status, "Odbijena", isChecked) Odbijena
+                </label>
+                @*@Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control", @checked = @isChecked } })*@
+                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Spremi" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Povratak na listu Predbilježbi", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

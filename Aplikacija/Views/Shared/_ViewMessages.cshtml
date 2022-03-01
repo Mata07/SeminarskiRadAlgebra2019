@@ -1,0 +1,23 @@
+﻿@{
+    if (ViewBag.Message != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            <p>
+                @ViewBag.Message
+            </p>
+        </div>
+    }
+}
+
+@{
+    if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+
+            <p>
+                @TempData["Message"]
+            </p>
+        </div>
+    }
+}
+

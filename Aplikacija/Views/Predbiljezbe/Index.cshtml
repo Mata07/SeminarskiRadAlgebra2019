@@ -1,0 +1,100 @@
+﻿@model IEnumerable<Aplikacija.Models.Predbiljezba>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@Html.Partial("_SearchBox")
+
+@Html.Partial("_ViewMessages")
+
+@*Ukoliko nema pronađenog pojma iz searchString-a prikaži ovo*@
+@if (Model.Count() == 0)
+{
+    <br />
+    <div>
+        <strong>Nema pronađenih podataka!</strong>
+    </div>
+    <br />
+    <div>
+        @Html.ActionLink("Povratak na listu Predbilježbi", "Index")
+    </div>
+}
+else
+{
+    @* Ukoliko ima ovo *@
+
+    <div class="col-md-12">
+        <label>Predbilježbe po statusu: </label>
+        <label>@Html.ActionLink("Sve", "Index", new { status = "" })</label>
+        <label>@Html.ActionLink("Prihvaćene", "Index", new { status = "Prihvacena", searchString = ViewBag.SearchString })</label>
+        <label>@Html.ActionLink("Odbijene", "Index", new { status = "Odbijena", searchString = ViewBag.SearchString })</label>
+        <label>@Html.ActionLink("Neobrađene", "Index", new { status = "Neobradena", searchString = ViewBag.SearchString })</label>
+    </div>
+
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Seminar.Naziv)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prezime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DatumPredbiljezbe)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Adresa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Telefon)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink("Uredi", "Edit", new { id = item.PredbiljezbaId }) |
+                    @Html.ActionLink("Detalji", "Details", new { id = item.PredbiljezbaId }) |
+                    @Html.ActionLink("Obriši", "Delete", new { id = item.PredbiljezbaId })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Seminar.Naziv)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Prezime)
+                </td>
+                <td>
+                    @String.Format("{0:dd/MM/yyyy}", item.DatumPredbiljezbe)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Adresa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telefon)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+
+            </tr>
+        }
+    </table>
+}

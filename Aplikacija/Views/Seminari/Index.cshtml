@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Aplikacija.Models.Seminar>
+
+@{
+    ViewBag.Title = "Seminari";
+
+}
+
+
+@Html.Partial("_SearchBox")
+
+@Html.Partial("_ViewMessages")
+
+@*Ukoliko nema pronađenog pojma iz searchString-a prikaži ovo*@
+@if (Model.Count() == 0)
+{
+    <br />
+    <div>
+        <strong>Nema pronađenih podataka!</strong>
+    </div>
+    <br />
+    <div>
+        @Html.ActionLink("Povratak na listu Seminara", "Index")
+    </div>
+}
+else /*Ako ima ili nije unešen pojam u searchString prikaži slijedeće*/
+{
+    <p>
+        @Html.ActionLink("Dodaj novi seminar", "Create", null, new { @class = "btn btn-primary" })
+    </p>
+
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Naziv)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Opis)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Datum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Popunjen)
+            </th>
+            <th>Broj polaznika</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.ActionLink("Uredi", "Edit", new { id = item.SeminarId }) |
+                @Html.ActionLink("Detalji", "Details", new { id = item.SeminarId }) |
+                @Html.ActionLink("Obriši", "Delete", new { id = item.SeminarId })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Naziv)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Opis)
+            </td>
+            <td>
+                @String.Format("{0:dd/MM/yyyy}", item.Datum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Popunjen)
+            </td>
+            <td>
+                @Html.Action("BrojPolaznika", new { id = item.SeminarId })
+            </td>
+        </tr>
+        }
+
+    </table>
+}

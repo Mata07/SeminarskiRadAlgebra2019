@@ -1,0 +1,48 @@
+﻿@model Aplikacija.Models.Seminar
+
+@{
+    ViewBag.Title = "Detalji";
+}
+<br />
+<h2>Detalji seminara: <strong>@Model.Naziv</strong></h2>
+<br />
+<div>    
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Naziv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Naziv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Opis)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Opis)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Datum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Datum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Popunjen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Popunjen)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Uredi", "Edit", new { id = Model.SeminarId }) |
+    @Html.ActionLink("Povratak na listu seminara", "Index")
+</p>

@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Aplikacija.Models.Seminar>
+
+@{
+    ViewBag.Title = "Predbilježba";
+
+}
+
+
+@Html.Partial("_SearchBox")
+
+@Html.Partial("_ViewMessages")
+
+@*Ukoliko nema pronađenog pojma iz searchString-a prikaži ovo*@
+@if (Model.Count() == 0)
+{
+    <br />
+    <div>
+        <strong>Nema pronađenih podataka!</strong>
+    </div>
+    <br />
+    <div>
+        @Html.ActionLink("Povratak na listu Seminara", "Index")
+    </div>
+}
+else
+{  
+    <table class="table">
+        <tr>
+            <th>
+                <label>Prijavi se</label>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Naziv)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Opis)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Datum)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink("Odaberi", "Create", "Predbiljezba", new { id = item.SeminarId }, null)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Naziv)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Opis)
+                </td>
+                <td>
+                    @String.Format("{0:dd/MM/yyyy}", item.Datum)
+                </td>
+            </tr>
+        }
+    </table>
+
+}

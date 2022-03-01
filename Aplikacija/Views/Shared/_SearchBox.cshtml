@@ -1,0 +1,13 @@
+﻿@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-12">
+                <p class="search-box">
+                    <strong>Pretraga:</strong> @Html.TextBox("searchString")
+                    <input type="submit" value="Pretraži" />
+                </p>
+            </div>
+        </div>
+    </div>
+}
